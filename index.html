@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi Search Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+    }
+    .icon{
+      width: 30px;
+    }
+
+    
+
+    .search-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      font-size: 10px;
+      align-items: center; 
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0077ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005dcc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Search on YouTube, Google & ChatGPT</h1>
+  <div class="search-container">
+
+    <div class="search-box">
+     <img class="icon" src="./images/youtub.png" alt=""> Search any things on youtub<input type="text" id="youtubeInput" placeholder="Search on YouTube">
+      <button onclick="search('youtube')">Search</button>
+    </div>
+
+    <div class="search-box">
+      <img class="icon" src="./images/google icon.png" alt="">Search any things on Google<input type="text" id="googleInput" placeholder="Search on Google">
+      <button onclick="search('google')">Search</button>
+    </div>
+
+    <div class="search-box">
+ <img class="icon" src="./images/chatgpt icon.png" alt="">Search any things on ChatGPT<input type="text" id="chatgptInput" placeholder="Search on ChatGPT">
+      <button onclick="search('chatgpt')">Search</button>
+    </div>
+
+  </div>
+
+  <script>
+    function search(platform) {
+      let query = "";
+      let url = "";
+      let input = null;
+
+      if (platform === "youtube") {
+        input = document.getElementById("youtubeInput");
+        query = input.value;
+        url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+      } else if (platform === "google") {
+        input = document.getElementById("googleInput");
+        query = input.value;
+        url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      } else if (platform === "chatgpt") {
+        input = document.getElementById("chatgptInput");
+        query = input.value;
+        url = `https://chat.openai.com/?q=${encodeURIComponent(query)}`;
+      }
+
+      if (query.trim() !== "") {
+        window.open(url, '_blank');
+        input.value = ""; // Clear the input after search
+      }
+    }
+
+    // Enter key se bhi search ho
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          if (this.id === "youtubeInput") search("youtube");
+          else if (this.id === "googleInput") search("google");
+          else if (this.id === "chatgptInput") search("chatgpt");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
